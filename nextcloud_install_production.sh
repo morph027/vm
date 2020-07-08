@@ -68,6 +68,38 @@ network_ok() {
     sleep 3 && site_200 github.com
 }
 
+msg_box() {
+local PROMPT="$1"
+    whiptail --title "Nextcloud VM - $(date +"%Y")" --msgbox "${PROMPT}" "$WT_HEIGHT" "$WT_WIDTH"
+}
+
+site_200() {
+print_text_in_color "$ICyan" "Checking connection..."
+        CURL_STATUS="$(curl -sSL -w "%{http_code}" "${1}" | tail -1)"
+        if [[ "$CURL_STATUS" = "200" ]]
+        then
+            return 0
+        else
+            print_text_in_color "$IRed" "curl didn't produce a 200 status, is the site reachable?"
+            return 1
+        fi
+}
+
+check_command() {
+if ! "$@";
+then
+    print_text_in_color "$ICyan" "Sorry but something went wrong. Please report this issue to $ISSUES and include the output of the error message. Thank you!"
+    print_text_in_color "$IRed" "$* failed"
+    if occ_command_no_check -V > /dev/null
+    then
+        notify_admin_gui \
+        "Sorry but something went wrong. Please report this issue to $ISSUES and include the output of the error message. Thank you!" \
+        "$* failed"
+    fi
+    exit 1
+fi
+}
+
 #########
 
 # Check if root
