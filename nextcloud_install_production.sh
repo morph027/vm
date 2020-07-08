@@ -443,9 +443,9 @@ fi
 tar -xjf "$HTML/$STABLEVERSION.tar.bz2" -C "$HTML" & spinner_loading
 rm "$HTML/$STABLEVERSION.tar.bz2"
 
-# Secure permissions
-download_script STATIC setup_secure_permissions_nextcloud
+# Set permissions
 chown -R www-data:www-data "$HTML"
+chown -R www-data:www-data "$NCDATA"
 
 # Install Nextcloud
 print_text_in_color "$ICyan" "Installing Nextcloud..."
@@ -763,9 +763,6 @@ echo "alias nextcloud_occ='sudo -u www-data php /var/www/nextcloud/occ'"
 } > /root/.bash_aliases
 fi
 
-# Set secure permissions final (./data/.htaccess has wrong permissions otherwise)
-bash $SECURE & spinner_loading
-
 # Force MOTD to show correct number of updates
 if is_this_installed update-notifier-common
 then
@@ -832,7 +829,6 @@ chown -R www-data:www-data $NCPATH
 occ_command config:system:set overwrite.cli.url --value="http://localhost/"
 occ_command config:system:set htaccess.RewriteBase --value="/"
 occ_command maintenance:update:htaccess
-bash $SECURE & spinner_loading
 
 # Generate new SSH Keys
 printf "\nGenerating new SSH keys for the server...\n"
