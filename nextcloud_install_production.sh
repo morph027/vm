@@ -867,23 +867,13 @@ truncate -s 0 \
     "/var/spool/mail/$UNIXUSER" \
     /var/log/apache2/access.log \
     /var/log/apache2/error.log \
-    /var/log/cronjobs_success.log \
     "$VMLOGS/nextcloud.log"
 
 sed -i "s|sudo -i||g" "/home/$UNIXUSER/.bash_profile"
 
 # Cleanup 1
 occ_command maintenance:repair
-rm -f "$SCRIPTS/ip.sh"
-rm -f "$SCRIPTS/change_db_pass.sh"
-rm -f "$SCRIPTS/test_connection.sh"
-rm -f "$SCRIPTS/instruction.sh"
-rm -f "$NCDATA/nextcloud.log"
-rm -f "$SCRIPTS/static_ip.sh"
-rm -f "$SCRIPTS/lib.sh"
-rm -f "$SCRIPTS/server_configuration.sh"
-rm -f "$SCRIPTS/nextcloud_configuration.sh"
-rm -f "$SCRIPTS/additional_apps.sh"
+rm -f "$SCRIPTS"
 
 # Set permissions
 chown -R www-data:www-data "$HTML"
