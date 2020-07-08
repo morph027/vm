@@ -793,8 +793,7 @@ while true
 do
     sudo passwd "$(getent group sudo | cut -d: -f4 | cut -d, -f1)" && break
 done
-echo
-clear
+
 # NEXTCLOUD USER
 NCADMIN=$(occ_command user:list | awk '{print $3}')
 print_text_in_color "$ICyan" "The current admin user in Nextcloud GUI is [$NCADMIN]"
@@ -814,7 +813,6 @@ then
     occ_command user:delete "$NCADMIN"
     sleep 2
 fi
-clear
 
 # Change Timezone
 print_text_in_color "$ICyan" "Current timezone is $(cat /etc/timezone)"
@@ -822,7 +820,6 @@ if [[ "no" == $(ask_yes_or_no "Do you want to change the timezone?") ]]
 then
     print_text_in_color "$ICyan" "Not changing timezone..."
     sleep 1
-    clear
 else
     dpkg-reconfigure tzdata
 fi
@@ -832,7 +829,6 @@ sed -i "s|;date.timezone.*|date.timezone = $(cat /etc/timezone)|g" "$PHP_INI"
 
 # Change timezone for logging
 occ_command config:system:set logtimezone --value="$(cat /etc/timezone)"
-clear
 
 # Pretty URLs
 print_text_in_color "$ICyan" "Setting RewriteBase to \"/\" in config.php..."
@@ -848,9 +844,8 @@ dpkg-reconfigure openssh-server
 
 # Generate new PostgreSQL password
 print_text_in_color "$ICyan" "Generating new PostgreSQL password..."
-check_command bash "$SCRIPTS/change_db_pass.sh"
+run_script STATIC change_db_pass
 sleep 3
-clear
 
 # Prep for first use
 cat << ROOTNEWPROFILE > "/root/.bash_profile"
