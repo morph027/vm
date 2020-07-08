@@ -454,9 +454,9 @@ fi
 tar -xjf "$HTML/$STABLEVERSION.tar.bz2" -C "$HTML" & spinner_loading
 rm "$HTML/$STABLEVERSION.tar.bz2"
 
-# Set permissions
-chown -R www-data:www-data "$HTML"
-chown -R www-data:www-data "$NCDATA"
+
+# Set permissions to be able to run the install
+run_script STATIC setup_secure_permissions_nextcloud
 
 # Install Nextcloud
 print_text_in_color "$ICyan" "Installing Nextcloud..."
@@ -890,6 +890,9 @@ rm -f "$SCRIPTS/server_configuration.sh"
 rm -f "$SCRIPTS/nextcloud_configuration.sh"
 rm -f "$SCRIPTS/additional_apps.sh"
 
+# Set permissions
+chown -R www-data:www-data "$HTML"
+chown -R www-data:www-data "$NCDATA"
 
 # Reboot
 print_text_in_color "$IGreen" "Installation done, system will now reboot..."
