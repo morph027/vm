@@ -158,8 +158,7 @@ fi
 # When we have internet, fetch the latest lib.sh variables and functions
 true
 # shellcheck source=lib.sh
-NCDB=1 . <(curl -sL https://raw.githubusercontent.com/nextcloud/vm/master/lib.sh)
-unset NCDB
+. <(curl -sL https://raw.githubusercontent.com/nextcloud/vm/master/lib.sh)
 
 # Check if dpkg or apt is running
 is_process_running apt
