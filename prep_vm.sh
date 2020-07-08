@@ -45,6 +45,6 @@ apt-get purge lxd -y
 if [ -f /etc/issue ]
 then
     echo "\4" >> /etc/issue
-    echo "USER: ncadmin"
-    echo "PASS: nextcloud"
+    echo "USER: ncadmin" >> /etc/issue
+    echo "PASS: nextcloud" >> /etc/issue
 fi
