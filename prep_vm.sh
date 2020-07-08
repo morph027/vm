@@ -12,6 +12,10 @@ true
 DEBUG=0
 debug_mode
 
+# Check if dpkg or apt is running
+is_process_running apt
+is_process_running dpkg
+
 # Create scripts folder
 mkdir -p "$SCRIPTS"
 
@@ -20,6 +24,7 @@ check_command curl_to_dir "$GITHUB_REPO" lib.sh "$SCRIPTS"
 download_script STATIC instruction
 download_script STATIC history
 download_script STATIC static_ip
+download_script STATIC nextcloud_install_production
 
 # Make $SCRIPTS excutable
 chmod +x -R "$SCRIPTS"
