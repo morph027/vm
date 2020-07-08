@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Don't run if it's already run
-if [ -d /var/scripts ]
-then
-    exit
-fi
-
 # shellcheck disable=2034,2059
 true
 # shellcheck source=lib.sh
