@@ -54,6 +54,7 @@ APP="$GITHUB_REPO/apps"
 OLD="$GITHUB_REPO/old"
 ADDONS="$GITHUB_REPO/addons"
 VAGRANT_DIR="$GITHUB_REPO/vagrant"
+MAIN="$GITHUB_REPO/master"
 NCREPO="https://download.nextcloud.com/server/releases"
 ISSUES="https://github.com/nextcloud/vm/issues"
 # User information
