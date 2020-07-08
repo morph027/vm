@@ -20,11 +20,11 @@ is_process_running dpkg
 mkdir -p "$SCRIPTS"
 
 # Get needed scripts for first bootup
-check_command curl_to_dir "$GITHUB_REPO" lib.sh "$SCRIPTS"
 download_script STATIC instruction
 download_script STATIC history
 download_script STATIC static_ip
-download_script STATIC nextcloud_install_production
+download_script GITHUB_REPO lib
+download_script GITHUB_REPO nextcloud_install_production
 
 # Make $SCRIPTS excutable
 chmod +x -R "$SCRIPTS"
