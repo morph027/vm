@@ -883,8 +883,7 @@ if [ -d "/root/bin" ]
 then
     PATH="/root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
 fi
-bash /var/scripts/history.sh
-bash "$SCRIPTS"/welcome.sh
+bash "$HOME"/welcome.sh
 UNIXUSERNEWPROFILE
 
 truncate -s 0 \
