@@ -26,10 +26,6 @@ download_script GITHUB_REPO lib
 download_script STATIC history
 download_script STATIC static_ip
 
-# Make $SCRIPTS excutable
-chmod +x -R "$SCRIPTS"
-chown root:root -R "$SCRIPTS"
-
 # Check if dpkg or apt is running
 is_process_running apt
 is_process_running dpkg
@@ -64,3 +60,7 @@ curl_to_dir https://raw.githubusercontent.com/nextcloud/vm/official/static welco
 # Prepare first bootup
 check_command run_script STATIC change-ncadmin-profile
 check_command run_script STATIC change-root-profile
+
+# Make $SCRIPTS excutable
+chmod +x -R "$SCRIPTS"
+chown root:root -R "$SCRIPTS"
