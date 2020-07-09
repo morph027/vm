@@ -55,7 +55,7 @@ true
 # Get needed scripts for first bootup
 download_script STATIC instruction
 download_script GITHUB_REPO nextcloud_install_production
-curl_to_dir https://raw.githubusercontent.com/nextcloud/vm/official/static welcome.sh "$HOME"
+curl_to_dir https://raw.githubusercontent.com/nextcloud/vm/official/static welcome.sh "/home/$UNIXUSER"
 
 # Prepare first bootup
 check_command run_script STATIC change-ncadmin-profile
@@ -63,4 +63,4 @@ check_command run_script STATIC change-root-profile
 
 # Make $SCRIPTS excutable
 chmod +x -R "$SCRIPTS"
-chown root:root -R "$SCRIPTS"
+chown ncadmin:ncadmin -R "$SCRIPTS"
