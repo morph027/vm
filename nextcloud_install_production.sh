@@ -848,7 +848,7 @@ run_script STATIC change_db_pass
 sleep 3
 
 # Prep for first use
-cat << ROOTNEWPROFILE > "/root/.bash_profile"
+cat << ROOTNEWPROFILE > "$ROOT_PROFILE"
 # ~/.profile: executed by Bourne-compatible login shells.
 if [ "/bin/bash" ]
 then
@@ -859,6 +859,33 @@ then
 fi
 mesg n
 ROOTNEWPROFILE
+
+cat << UNIXUSERNEWPROFILE > "$UNIXUSER_PROFILE"
+# ~/.profile: executed by the command interpreter for login shells.
+# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
+# exists.
+# see /usr/share/doc/bash/examples/startup-files for examples.
+# the files are located in the bash-doc package.
+# the default umask is set in /etc/profile; for setting the umask
+# for ssh logins, install and configure the libpam-umask package.
+#umask 022
+# if running bash
+if [ -n "5.0.16(1)-release" ]
+then
+    # include .bashrc if it exists
+    if [ -f "/root/.bashrc" ]
+    then
+        . "/root/.bashrc"
+    fi
+fi
+# set PATH so it includes user's private bin if it exists
+if [ -d "/root/bin" ]
+then
+    PATH="/root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+fi
+bash /var/scripts/history.sh
+bash "$SCRIPTS"/welcome.sh
+UNIXUSERNEWPROFILE
 
 truncate -s 0 \
     /root/.bash_history \
