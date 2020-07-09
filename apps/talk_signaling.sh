@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # T&M Hansson IT AB © - 2020, https://www.hanssonit.se/
@@ -17,3 +16,8 @@ debug_mode
 # Check if root
 root_check
 
+### TLS?
+
+### Proxy config?
+
+### more?
