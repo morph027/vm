@@ -899,7 +899,7 @@ sed -i "s|sudo -i||g" "/home/$UNIXUSER/.bash_profile"
 
 # Cleanup 1
 occ_command maintenance:repair
-rm -f "$SCRIPTS"
+rm -rf "$SCRIPTS"
 
 # Set permissions
 chown -R www-data:www-data "$HTML"
