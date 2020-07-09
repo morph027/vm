@@ -857,6 +857,11 @@ sed -i "s|DocumentRoot /var/www/html|DocumentRoot $HTML|g" /etc/apache2/sites-av
  sed -i '18i\   </If>' /etc/apache2/sites-available/000-default.conf
  sed -i '19i\   </FilesMatch>' /etc/apache2/sites-available/000-default.conf
  sed -i '20i\    ' /etc/apache2/sites-available/000-default.conf
+ 
+# Get welcome script
+curl_to_dir https://raw.githubusercontent.com/nextcloud/vm/official/static welcome.sh /home/ncadmin
+chown ncadmin:ncadmin -R /home/ncadmin
+chmod +x /home/ncadmin/welcome.sh
 
 # Prep for first use
 cat << ROOTNEWPROFILE > "$ROOT_PROFILE"
@@ -894,7 +899,7 @@ if [ -d "/root/bin" ]
 then
     PATH="/root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
 fi
-bash "$HOME"/welcome.sh
+bash $UNIXUSER/welcome.sh
 UNIXUSERNEWPROFILE
 
 truncate -s 0 \
