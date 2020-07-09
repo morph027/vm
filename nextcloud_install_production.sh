@@ -846,6 +846,18 @@ download_script STATIC index
 mv $SCRIPTS/index.php $HTML/index.php && rm -f $HTML/html/index.html
 chmod 750 $HTML/index.php && chown www-data:www-data $HTML/index.php
 
+# Change 000-default to $HTML
+sed -i "s|DocumentRoot /var/www/html|DocumentRoot $HTML|g" /etc/apache2/sites-available/000-default.conf
+
+# Make possible to see the welcome screen (without this php-fpm won't reach it)
+ sed -i '14i\    # http://lost.l-w.ca/0x05/apache-mod_proxy_fcgi-and-php-fpm/' /etc/apache2/sites-available/000-default.conf
+ sed -i '15i\   <FilesMatch "\.php$">' /etc/apache2/sites-available/000-default.conf
+ sed -i '16i\    <If "-f %{SCRIPT_FILENAME}">' /etc/apache2/sites-available/000-default.conf
+ sed -i '17i\      SetHandler "proxy:unix:/run/php/php'$PHPVER'-fpm.nextcloud.sock|fcgi://localhost"' /etc/apache2/sites-available/000-default.conf
+ sed -i '18i\   </If>' /etc/apache2/sites-available/000-default.conf
+ sed -i '19i\   </FilesMatch>' /etc/apache2/sites-available/000-default.conf
+ sed -i '20i\    ' /etc/apache2/sites-available/000-default.conf
+
 # Prep for first use
 cat << ROOTNEWPROFILE > "$ROOT_PROFILE"
 # ~/.profile: executed by Bourne-compatible login shells.
