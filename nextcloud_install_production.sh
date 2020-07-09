@@ -858,10 +858,20 @@ sed -i "s|DocumentRoot /var/www/html|DocumentRoot $HTML|g" /etc/apache2/sites-av
  sed -i '19i\   </FilesMatch>' /etc/apache2/sites-available/000-default.conf
  sed -i '20i\    ' /etc/apache2/sites-available/000-default.conf
  
+# Cleanup 1
+occ_command maintenance:repair
+rm -rf "$SCRIPTS"
+
 # Get welcome script
 curl_to_dir https://raw.githubusercontent.com/nextcloud/vm/official/static welcome.sh /home/$UNIXUSER
+
+# Get local lib.sh file
+curl_to_dir https://raw.githubusercontent.com/nextcloud/vm/official/static lib.sh /home/$UNIXUSER
+
+# Set permissions
 chown $UNIXUSER:$UNIXUSER -R /home/$UNIXUSER
 chmod +x /home/$UNIXUSER/welcome.sh
+chmod +x /home/$UNIXUSER/lib.sh
 
 # Prep for first use
 cat << ROOTNEWPROFILE > "$ROOT_PROFILE"
@@ -912,10 +922,6 @@ truncate -s 0 \
     "$VMLOGS/nextcloud.log"
 
 sed -i "s|sudo -i||g" "/home/$UNIXUSER/.bash_profile"
-
-# Cleanup 1
-occ_command maintenance:repair
-rm -rf "$SCRIPTS"
 
 # Set permissions
 chown -R www-data:www-data "$HTML"
