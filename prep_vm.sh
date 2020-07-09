@@ -20,7 +20,6 @@ mkdir -p "$SCRIPTS"
 
 # Get needed scripts for first bootup
 download_script GITHUB_REPO lib
-download_script GITHUB_REPO nextcloud_install_production
 download_script STATIC history
 download_script STATIC static_ip
 
@@ -56,6 +55,7 @@ true
 
 # Get needed scripts for first bootup
 download_script STATIC instruction
+download_script GITHUB_REPO nextcloud_install_production
 curl_to_dir https://raw.githubusercontent.com/nextcloud/vm/official/static welcome.sh "$HOME"
 
 # Prepare first bootup
