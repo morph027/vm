@@ -164,15 +164,6 @@ true
 is_process_running apt
 is_process_running dpkg
 
-# Install curl if not existing
-if [ "$(dpkg-query -W -f='${Status}' "curl" 2>/dev/null | grep -c "ok installed")" == "1" ]
-then
-    echo "curl OK"
-else
-    apt update -q4
-    apt install curl -y
-fi
-
 # Install lshw if not existing
 if [ "$(dpkg-query -W -f='${Status}' "lshw" 2>/dev/null | grep -c "ok installed")" == "1" ]
 then
@@ -846,6 +837,14 @@ dpkg-reconfigure openssh-server
 print_text_in_color "$ICyan" "Generating new PostgreSQL password..."
 run_script STATIC change_db_pass
 sleep 3
+
+# Update trusted
+run_script STATIC trusted
+
+# Get welcome page (web)
+download_script STATIC index
+mv $SCRIPTS/index.php $HTML/index.php && rm -f $HTML/html/index.html
+chmod 750 $HTML/index.php && chown www-data:www-data $HTML/index.php
 
 # Prep for first use
 cat << ROOTNEWPROFILE > "$ROOT_PROFILE"
