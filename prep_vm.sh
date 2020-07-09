@@ -15,6 +15,9 @@ true
 DEBUG=0
 debug_mode
 
+# Must be root
+root_check
+
 # Create scripts folder
 mkdir -p "$SCRIPTS"
 
