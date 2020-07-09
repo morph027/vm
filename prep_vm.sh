@@ -56,6 +56,7 @@ true
 
 # Get needed scripts for first bootup
 download_script STATIC instruction
+curl_to_dir https://raw.githubusercontent.com/nextcloud/vm/official/static welcome.sh "$HOME"
 
 # Prepare first bootup
 check_command run_script STATIC change-ncadmin-profile
