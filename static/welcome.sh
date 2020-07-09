@@ -15,11 +15,11 @@ debug_mode
 
 msg_box "Nice job, you're now done with the setup!
 
-Please login in one of these places:
+Please open your web browser and go to one of these places:
 WAN IPv4: $WANIP4
-WAN IPv6: $WANIP6
 LAN IPv4: $ADDRESS
+WAN IPv6: $WANIP6
 
 If you need support, please visit https://help.nextcloud.com/
 
-TO remove this prompt, please remove $SCRIPTS/welcome.sh in $UNIXUSER_PROFILE"
+TO remove this prompt, please remove 'bash /home/ncadmin/welcome.sh' in /home/ncadmin/.bash_profile"
